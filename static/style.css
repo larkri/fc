@@ -1,0 +1,73 @@
+/* Basic container styles */
+.container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center; /* Centrerar texten horisontellt */
+    margin-top: 20px;   /* Lägg till ett litet avstånd från toppen */
+}
+
+
+/* Form and input styles */
+input[type="text"], input[type="number"], button {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box; /* Makes sure the padding is included in the width */
+    text-align: center; /* Centers the text inside input fields */
+}
+
+/* Focus styles for inputs and buttons */
+input[type="text"]:focus, input[type="number"]:focus, button:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
+}
+
+/* Button styles */
+button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Ensuring text within the public key field breaks and stays within bounds */
+p.info {
+    word-wrap: break-word; /* Allows the text to wrap within the container */
+    word-break: break-word; /* Breaks the long string if it exceeds the width */
+    white-space: normal; /* Allows text to break naturally */
+}
+
+/* Error message styles */
+p.error {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Styling for form and input fields */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensuring the form fields and buttons have uniform spacing */
+input[type="text"], input[type="number"], button {
+    margin-bottom: 10px; /* Space between input fields */
+}
