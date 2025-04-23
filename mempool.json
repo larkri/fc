@@ -1,16 +1,9 @@
 [
-  {
-    "from": "966705fb976c0dc6ec39cfe2eb5dc1c025e7954a03f6ac81658251cc52aaaae10e5404a0dfc18e57ccfbeca7efdcba94fe0daec27b972d2245ea3bcecb861589",
-    "to": "e23c5cf79db749efe9e48dca2d2f67b61b70d689c945d996cf928afd60a6c653bd0b2715fac461b65fdcd6a555e40a2e4afc07b61c19d33a35daa0fd46c86a9c",
-    "amount": 40.0,
-    "timestamp": 1745263888.376033,
-    "hash": "2c0f2bcec069b91eb7e0c808ab0e29e327879a13259bbb8ea62e011cbf0e1af1"
-  },
-  {
-    "from": "e23c5cf79db749efe9e48dca2d2f67b61b70d689c945d996cf928afd60a6c653bd0b2715fac461b65fdcd6a555e40a2e4afc07b61c19d33a35daa0fd46c86a9c",
-    "to": "966705fb976c0dc6ec39cfe2eb5dc1c025e7954a03f6ac81658251cc52aaaae10e5404a0dfc18e57ccfbeca7efdcba94fe0daec27b972d2245ea3bcecb861589",
-    "amount": 33.33,
-    "timestamp": 1745267447.7357643,
-    "hash": "6565830986fb1a55198c047070f6513617f47f5646bf3b66c2c5ae65421d2787"
-  }
+    {
+        "from": "aaa87caf52f870eb68e28f4c8399c6536cb510c5849165e742329e6a711ecc12",
+        "to": "a6a394bcffaa4835c47d58f9671c648a4f3973a19c0760490fc1ea7bb8b9a0c1",
+        "amount": 1.0,
+        "timestamp": 1745416155.5826852,
+        "hash": "b1422b0e24afa6bdcb36d4b6522172f8ad2da9aac40b696e1457cc8a489d5340"
+    }
 ]

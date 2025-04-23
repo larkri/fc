@@ -1,12 +1,12 @@
 [
     {
-        "private_key": "15d3417a41ff7f712d6adf13a9d1404dc93b5609e098b8c1d5be5c20740b3fc2",
-        "public_key": "966705fb976c0dc6ec39cfe2eb5dc1c025e7954a03f6ac81658251cc52aaaae10e5404a0dfc18e57ccfbeca7efdcba94fe0daec27b972d2245ea3bcecb861589",
-        "balance": 43.33
+        "public_key": "aaa87caf52f870eb68e28f4c8399c6536cb510c5849165e742329e6a711ecc12",
+        "private_key": "2ce2df1bc7a723bb3e92b2696c1b8ac93299fe06a938332113039f784c9558ec",
+        "balance": 32.33
     },
     {
-        "private_key": "2bea82df25b3c84274c0140b0aef75a2fbfe95b665b09a5016280fc9e21545bf",
-        "public_key": "e23c5cf79db749efe9e48dca2d2f67b61b70d689c945d996cf928afd60a6c653bd0b2715fac461b65fdcd6a555e40a2e4afc07b61c19d33a35daa0fd46c86a9c",
-        "balance": 56.67
+        "public_key": "a6a394bcffaa4835c47d58f9671c648a4f3973a19c0760490fc1ea7bb8b9a0c1",
+        "private_key": "cbbfec7ba15e539dae2c7665e95765394ed85bae31fad7a74a4f71df1c30237e",
+        "balance": 1.0
     }
 ]

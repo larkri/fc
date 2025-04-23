@@ -1,5 +1,6 @@
+<!-- templates/wallet.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <title>Wallet</title>
@@ -9,7 +10,7 @@
 <div class="container">
     <h2>Din Wallet</h2>
     <form method="get">
-        <input type="text" name="public_key" placeholder="Ange din public key">
+        <input type="text" name="public_key" placeholder="Ange din public key" required>
         <button type="submit">Visa saldo</button>
     </form>
     <br>
@@ -18,8 +19,14 @@
     </a>
 
     {% if balance is not none %}
-        <p class="info">Saldo: {{ balance }} tokens</p>
-        <p class="info">Public Key: {{ public_key }}</p>
+        {% if balance == "Plånbok inte hittad." %}
+            <p class="info">{{ balance }}</p>
+        {% else %}
+            <p class="info">Saldo: {{ balance }} tokens</p>
+            <p class="info">Public Key: {{ public_key }}</p>
+        {% endif %}
+    {% elif public_key %}
+        <p class="info">Ingen plånbok hittades för denna public key.</p>
     {% endif %}
 </div>
 </body>

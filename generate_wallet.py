@@ -1,37 +1,37 @@
-import json
 import os
-from ecdsa import SigningKey, SECP256k1
+import hashlib
+import json
 
-WALLET_FILE = "wallets.json"
-
+# Funktion för att skapa en ny plånbok
 def generate_wallet():
-    # Generera en privat nyckel och en offentlig nyckel
-    private_key = SigningKey.generate(curve=SECP256k1)
-    public_key = private_key.verifying_key
+    private_key = os.urandom(32)  # Slumpmässig privat nyckel
+    public_key = hashlib.sha256(private_key).hexdigest()  # Beräkna den offentliga nyckeln
 
-    # Skapa plånboken med en initial balans
     wallet = {
-        "private_key": private_key.to_string().hex(),
-        "public_key": public_key.to_string().hex(),
-        "balance": 100  # Initial saldo för genesis-blocket
+        "public_key": public_key,
+        "private_key": private_key.hex(),
+        "balance": 0  # Startsaldo sätts till 0
     }
 
-    # Läs nuvarande plånböcker om filen finns
-    if os.path.exists(WALLET_FILE):
-        with open(WALLET_FILE, "r") as f:
-            wallets = json.load(f)
-    else:
-        wallets = []
-
-    # Lägg till den nya plånboken
+    wallets = get_wallets()
     wallets.append(wallet)
+    save_wallets(wallets)  # Spara den nya plånboken
+    return wallet
 
-    # Spara alla plånböcker till wallets.json
-    with open(WALLET_FILE, "w") as f:
+# Hämta alla plånböcker från en lagrad fil
+def get_wallets():
+    try:
+        with open("wallets.json", "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
+# Spara plånböcker till en fil
+def save_wallets(wallets):
+    with open("wallets.json", "w") as f:
         json.dump(wallets, f, indent=4)
 
-    print("Ny plånbok skapad:")
-    print(json.dumps(wallet, indent=4))
-
+# Testa funktionen genom att skapa en ny plånbok
 if __name__ == "__main__":
-    generate_wallet()
+    new_wallet = generate_wallet()
+    print(f"Ny plånbok skapad: {new_wallet}")
