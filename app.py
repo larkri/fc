@@ -1,12 +1,25 @@
 import hashlib
 import json
 import time
+import os
 from flask import Flask, render_template, request
+import threading
+
+# Importera scraperfunktion
+import kgsarchive
+
+# Starta scraper i bakgrundstråd
+scraper_thread = threading.Thread(target=kgsarchive.run_scraper, daemon=True)
+scraper_thread.start()
+print("kgsarchive.py körs som bakgrundstråd.")
 
 app = Flask(__name__)
 
 # Centralt filhanterings-utility
 def load_json(filename):
+    if not os.path.exists(filename):
+        with open(filename, 'w') as f:
+            json.dump([], f)
     try:
         with open(filename, "r") as file:
             return json.load(file)
@@ -30,19 +43,16 @@ def get_wallets():
 def save_wallets(wallets):
     save_json("wallets.json", wallets)
 
-def get_balance(public_key, wallets=None):
-    wallets = wallets or get_wallets()
+def get_balance(public_key, wallets):
     for wallet in wallets:
         if wallet['public_key'] == public_key:
             return wallet.get('balance', 0)
     return None
 
-def update_balance(public_key, new_balance, wallets=None):
-    wallets = wallets or get_wallets()
+def update_balance(public_key, new_balance, wallets):
     for wallet in wallets:
         if wallet['public_key'] == public_key:
             wallet['balance'] = new_balance
-            save_wallets(wallets)
             return True
     return False
 
@@ -64,7 +74,7 @@ def add_to_mempool(transaction):
     mempool.append(transaction)
     save_json("mempool.json", mempool)
 
-def is_valid_transaction(from_public_key, amount, wallets=None):
+def is_valid_transaction(from_public_key, amount, wallets):
     balance = get_balance(from_public_key, wallets)
     return balance is not None and balance >= amount
 
@@ -98,15 +108,17 @@ def wallet():
     public_key = request.args.get('public_key')
     balance = None
     if public_key:
-        balance = get_balance(public_key)
+        wallets = get_wallets()
+        balance = get_balance(public_key, wallets)
     return render_template("wallet.html", balance=balance, public_key=public_key)
 
 @app.route('/send', methods=['GET', 'POST'])
 def send():
     if request.method == 'POST':
         from_public_key = request.form.get('from')
-        private_key = request.form.get('private')  # Ej använd än
+        private_key = request.form.get('private')  # Ej använd
         to_public_key = request.form.get('to')
+
         try:
             amount = float(request.form.get('amount'))
         except (TypeError, ValueError):
@@ -126,6 +138,7 @@ def send():
 
         update_balance(from_public_key, get_balance(from_public_key, wallets) - amount, wallets)
         update_balance(to_public_key, get_balance(to_public_key, wallets) + amount, wallets)
+        save_wallets(wallets)
 
         add_to_blockchain(transaction)
 

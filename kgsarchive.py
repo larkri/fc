@@ -16,7 +16,7 @@ def get_latest_match():
         table = soup.find('table', {'class': 'grid'})
 
         if table:
-            rows = table.find_all('tr')[1:]  # hoppa headern
+            rows = table.find_all('tr')[1:]
             for row in rows:
                 columns = row.find_all('td')
                 if len(columns) > 6:
@@ -49,7 +49,7 @@ def read_saved_match():
         rows = list(reader)
         if len(rows) < 2:
             return None
-        return rows[1]  # första raden är header
+        return rows[1]
 
 def save_match(match):
     with open('matches.csv', mode='w', newline='', encoding='utf-8') as file:
@@ -92,24 +92,21 @@ def calculate_hash(data):
 
 def add_block(match):
     blockchain = load_blockchain()
-
     previous_hash = blockchain[-1]['hash'] if blockchain else None
 
     block_data = {
         'index': len(blockchain) + 1,
         'timestamp': time.time(),
         'previous_hash': previous_hash,
-        'matches': [
-            {
-                'viewable': match['viewable'],
-                'white': match['white'],
-                'black': match['black'],
-                'setup': match['setup'],
-                'start_time': match['start_time'],
-                'type': match['type'],
-                'result': match['result']
-            }
-        ]
+        'match_data': {
+            'Viewable': match['viewable'],
+            'White': match['white'],
+            'Black': match['black'],
+            'Setup': match['setup'],
+            'Start Time': match['start_time'],
+            'Type': match['type'],
+            'Result': match['result']
+        }
     }
 
     block_hash = calculate_hash(block_data)
@@ -117,15 +114,14 @@ def add_block(match):
 
     blockchain.append(block_data)
     save_blockchain(blockchain)
-
     print("Block tillagd i blockchain.json.")
 
-def run_kgs_watcher():
+# 👉 Scraping-loopen som funktion att starta i en bakgrundstråd
+def run_scraper():
     while True:
         latest_match = get_latest_match()
         if latest_match:
             saved_match = read_saved_match()
-
             if saved_match != match_to_list(latest_match):
                 save_match(latest_match)
                 add_block(latest_match)
@@ -133,8 +129,6 @@ def run_kgs_watcher():
                 print(f"{latest_match['start_time']} - {latest_match['white']} vs {latest_match['black']}, Result: {latest_match['result']}")
             else:
                 print("Ingen ny match än...")
-
         else:
             print("Kunde inte hämta matchdata.")
-
         time.sleep(30)
