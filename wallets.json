@@ -1,0 +1,12 @@
+[
+    {
+        "public_key": "aaa87caf52f870eb68e28f4c8399c6536cb510c5849165e742329e6a711ecc12",
+        "private_key": "2ce2df1bc7a723bb3e92b2696c1b8ac93299fe06a938332113039f784c9558ec",
+        "balance": 32.33
+    },
+    {
+        "public_key": "a6a394bcffaa4835c47d58f9671c648a4f3973a19c0760490fc1ea7bb8b9a0c1",
+        "private_key": "cbbfec7ba15e539dae2c7665e95765394ed85bae31fad7a74a4f71df1c30237e",
+        "balance": 1.0
+    }
+]
